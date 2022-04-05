@@ -1,0 +1,1 @@
+web: gunicorn django-blog-project-mma.wsgi
