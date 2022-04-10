@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from .models import Post
 from .forms import CommentForm
 
 
+
 class PostList(generic.ListView):
+    """ postlist """
     model = Post
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
@@ -52,6 +55,7 @@ class PostDetail(View):
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
+            messages.success(request, 'Success!')
         else:
             comment_form = CommentForm()
 
